@@ -1,9 +1,9 @@
 # Drunomics Backstop Configurator
 
 Simple CLI to update backstop configuration.
-`
-./node_modules/drunomics-backstop-config/bin/index.js 
-`
+
+## Usage
+run `./node_modules/drunomics-backstop-config/bin/index.js`
 
 ## Available arguments
 `-u $URL` URL of test page \
