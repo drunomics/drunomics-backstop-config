@@ -1,0 +1,15 @@
+{
+  "name": "drunomics-backstop-config",
+  "version": "0.0.1",
+  "description": "Backstop configurator",
+  "bin": {
+    "backstop-config": "bin/index.js"
+  },
+  "author": "Arthur Lorenz",
+  "license": "THE BEER-WARE LICENSE",
+  "dependencies": {
+    "exit": "^0.1.2",
+    "shelljs": "^0.7.8",
+    "backstopjs": "^3.0.31"
+  }
+}
