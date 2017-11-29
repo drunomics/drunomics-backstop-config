@@ -6,6 +6,6 @@ Simple CLI to update backstop configuration.
 `
 
 ## Available arguments
-`-u $URL` URL of test page
-`-p $PATH` Path to `backstop.json`; default: 'backstop.json'
+`-u $URL` URL of test page \
+`-p $PATH` Path to `backstop.json`; default: 'backstop.json' \
 `-e $ENGINE` Engine that should be used by backstop; default: 'phantomjs'
