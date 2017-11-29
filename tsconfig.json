@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "exit": ["node_modules/exit/lib/exit"]
+    },
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "module": "commonjs",
+    "target": "es5",
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "outDir": "bin/"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

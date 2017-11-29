@@ -1,53 +1,41 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var url = require("url");
 var fs = require("fs");
 var exit = require("exit");
 var Backstop = (function () {
-    function Backstop(backstopJsonPath, baseUrl) {
-        this.backstopJsonPath = backstopJsonPath;
+    function Backstop(options) {
+        this.options = options;
         this.backstopJson = this.getBackstopJson();
-        this.baseUrl = baseUrl;
     }
-    /**
-     * Initialize backstop.
-     *
-     * @param backstopJsonPath
-     * @param {string} baseUrl
-     */
-    Backstop.init = function (backstopJsonPath, baseUrl) {
-        var backstop = new Backstop(backstopJsonPath, baseUrl);
+    Backstop.init = function (options) {
+        var backstop = new Backstop(options);
         backstop.init();
     };
-    /**
-     * Initialize backstop.
-     */
     Backstop.prototype.init = function () {
+        this.setBaseUrl();
+        this.setEngine();
+        this.saveBackstopJson();
+    };
+    Backstop.prototype.setBaseUrl = function () {
         var _this = this;
         this.backstopJson.scenarios.forEach(function (e) {
             var currentUrl = url.parse(e.url);
-            e.url = _this.baseUrl + currentUrl.path;
+            e.url = _this.options.baseUrl + currentUrl.path;
         });
-        this.saveBackstopJson();
     };
-    /**
-     * Gets backstop configuration JSON from given file.
-     *
-     * @returns {any}
-     *   Backstop configuration JSON.
-     */
+    Backstop.prototype.setEngine = function () {
+        this.backstopJson.engine = this.options.engine;
+    };
     Backstop.prototype.getBackstopJson = function () {
-        if (!fs.existsSync(this.backstopJsonPath)) {
-            console.error('Error: ' + this.backstopJsonPath + ' not found.');
+        if (!fs.existsSync(this.options.path)) {
+            console.error('Error: ' + this.options.path + ' not found.');
             exit(1);
         }
         return JSON.parse(fs.readFileSync('backstop.json', 'utf8'));
     };
-    /**
-     * Saves backstop configuration JSON in given file.
-     */
     Backstop.prototype.saveBackstopJson = function () {
-        fs.writeFileSync(this.backstopJsonPath, JSON.stringify(this.backstopJson, null, 2));
+        fs.writeFileSync(this.options.path, JSON.stringify(this.backstopJson, null, 2));
     };
     return Backstop;
 }());

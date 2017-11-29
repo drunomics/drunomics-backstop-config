@@ -1,19 +1,25 @@
 #! /usr/bin/env node
 import {Backstop} from "./Backstop";
 import * as exit from "exit";
+import {BackstopOptions} from "./BackstopOptions";
 
-let baseUrl;
-let path;
+let argv = require('minimist')(process.argv.slice(2));
+let options: BackstopOptions;
+let baseUrl: string;
+let path: string;
+let engine: string;
 
-// Check for url argument.
-process.argv.forEach(function (val, index, array) {
-  if (val.match('^url=.*$')) {
-    baseUrl = val.substr(4)
-  }
-  else if(val.match('^path=.*$')) {
-    path = val.substr(5);
-  }
-});
+if (argv.u !== null) {
+  baseUrl = argv.u;
+}
+
+if (argv.p !== null) {
+  path = argv.p;
+}
+
+if (argv.e !== null) {
+  engine = argv.e;
+}
 
 if (typeof baseUrl === 'undefined') {
   console.error('Error: Base URL missing.');
@@ -25,7 +31,18 @@ if (typeof path === 'undefined') {
   path = 'backstop.json';
 }
 
-Backstop.init(path, baseUrl);
+if (typeof engine === 'undefined') {
+  console.log('Engine not set, using "phantomjs"');
+  engine = 'phantomjs';
+}
+
+options = {
+  "baseUrl": baseUrl,
+  "path": path,
+  "engine": engine
+};
+
+Backstop.init(options);
 
 
 
