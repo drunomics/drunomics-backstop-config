@@ -1,17 +1,29 @@
 {
-  "name": "drunomics-backstop-config",
+  "name": "@drunomics/drunomics-backstop-config",
   "version": "0.0.4",
   "description": "Backstop configurator",
   "bin": {
     "backstop-config": "bin/index.js"
   },
   "author": "Arthur Lorenz",
-  "license": "THE BEER-WARE LICENSE",
+  "license": "Beerware",
   "dependencies": {
     "exit": "^0.1.2",
     "minimist": "^1.2.0"
   },
   "devDependencies": {
     "@types/node": "^8.0.53"
-  }
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drunomics/drunomics-backstop-config.git"
+  },
+  "bugs": {
+    "url": "https://github.com/drunomics/drunomics-backstop-config/issues"
+  },
+  "homepage": "https://github.com/drunomics/drunomics-backstop-config#readme"
 }
