@@ -67,7 +67,7 @@ export class Backstop {
       console.error('Error: ' + this.options.path + ' not found.');
       exit(1);
     }
-    return JSON.parse(fs.readFileSync('backstop.json', 'utf8'))
+    return JSON.parse(fs.readFileSync(this.options.path, 'utf8'))
   }
 
   /**
