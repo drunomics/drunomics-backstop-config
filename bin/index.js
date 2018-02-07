@@ -7,6 +7,7 @@ var argv = require('minimist')(process.argv.slice(2));
 var options;
 var baseUrl;
 var subsite;
+var dash;
 var path;
 var engine;
 if (argv.u !== null) {
@@ -14,6 +15,9 @@ if (argv.u !== null) {
 }
 if (argv.s !== null) {
     subsite = argv.s;
+}
+if (argv.d !== null) {
+    dash = argv.d;
 }
 if (argv.p !== null) {
     path = argv.p;
@@ -37,7 +41,8 @@ options = {
     "baseUrl": baseUrl,
     "path": path,
     "engine": engine,
-    "subsite": typeof subsite !== 'undefined'
+    "subsite": typeof subsite !== 'undefined',
+    "dash": typeof dash !== 'undefined'
 };
 Backstop_1.Backstop.init(options);
 //# sourceMappingURL=index.js.map

@@ -52,12 +52,14 @@ export class Backstop {
         let indexOfLocal = parsedBaseUrl.host.indexOf('.local');
         let indexOfCi = parsedBaseUrl.host.indexOf('.ci.drunomics.com');
 
-        if (indexOfLocal !== -1) {
+        if (this.options.dash && indexOfLocal !== -1) {
           parsedBaseUrl.host = parsedBaseUrl.host.slice(0, indexOfLocal) + '-' + subsite +  parsedBaseUrl.host.slice(indexOfLocal);
         }
-        else if (indexOfCi !== -1) {
-          parsedBaseUrl.host = subsite + '_' + parsedBaseUrl.host;
+        else {
+          let glue = indexOfCi !== -1 ? '_' : '.';
+          parsedBaseUrl.host = subsite + glue + parsedBaseUrl.host;
         }
+        parsedBaseUrl.pathname = parsedScenarioUrl.pathname;
         newUrl = url.format(parsedBaseUrl);
       }
       else {

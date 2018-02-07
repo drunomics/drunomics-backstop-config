@@ -19,4 +19,9 @@ export interface BackstopOptions {
    * Whether project has subsites.
    */
   "subsite": boolean
+
+  /**
+   * Whether local url should be like host-subsite.local
+   */
+  "dash": boolean
 }

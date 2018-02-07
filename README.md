@@ -10,4 +10,5 @@ run `./node_modules/drunomics-backstop-config/bin/index.js`
 `-p $PATH` Path to `backstop.json`; default: 'backstop.json' \
 `-e $ENGINE` Engine that should be used by backstop; default: 'phantomjs' \
 
-`--s` Whether site has subsites. (http(s)://subsite_site.host)
+`--s` Whether site has subsites. (http(s)://subsite_site.host) \
+`--d` Whether local url should be like host-subsite.local (default is subsite.host.local)
