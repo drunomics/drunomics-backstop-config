@@ -14,4 +14,9 @@ export interface BackstopOptions {
    * Engine backstop should use.
    */
   "engine": string
+
+  /**
+   * Whether project has subsites.
+   */
+  "subsite": boolean
 }

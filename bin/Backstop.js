@@ -19,9 +19,26 @@ var Backstop = (function () {
     };
     Backstop.prototype.setBaseUrl = function () {
         var _this = this;
-        this.backstopJson.scenarios.forEach(function (e) {
-            var currentUrl = url.parse(e.url);
-            e.url = _this.options.baseUrl + currentUrl.path;
+        this.backstopJson.scenarios.forEach(function (scenario) {
+            var parsedScenarioUrl = url.parse(scenario.url);
+            var newUrl = '';
+            if (_this.options.subsite && parsedScenarioUrl.host.indexOf('_') !== -1) {
+                var parsedBaseUrl = url.parse(_this.options.baseUrl);
+                var subsite = parsedScenarioUrl.host.substring(0, parsedScenarioUrl.host.indexOf('_'));
+                var indexOfLocal = parsedBaseUrl.host.indexOf('.local');
+                var indexOfCi = parsedBaseUrl.host.indexOf('.ci.drunomics.com');
+                if (indexOfLocal !== -1) {
+                    parsedBaseUrl.host = parsedBaseUrl.host.slice(0, indexOfLocal) + '-' + subsite + parsedBaseUrl.host.slice(indexOfLocal);
+                }
+                else if (indexOfCi !== -1) {
+                    parsedBaseUrl.host = subsite + '_' + parsedBaseUrl.host;
+                }
+                newUrl = url.format(parsedBaseUrl);
+            }
+            else {
+                newUrl = _this.options.baseUrl + parsedScenarioUrl.path;
+            }
+            scenario.url = newUrl;
         });
     };
     Backstop.prototype.setEngine = function () {

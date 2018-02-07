@@ -43,9 +43,27 @@ export class Backstop {
    * Sets base url of pages that should be tested
    */
   setBaseUrl() {
-    this.backstopJson.scenarios.forEach((e) => {
-      let currentUrl = url.parse(e.url);
-      e.url = this.options.baseUrl + currentUrl.path;
+    this.backstopJson.scenarios.forEach((scenario) => {
+      let parsedScenarioUrl = url.parse(scenario.url);
+      let newUrl = '';
+      if (this.options.subsite && parsedScenarioUrl.host.indexOf('_') !== -1) {
+        let parsedBaseUrl = url.parse(this.options.baseUrl);
+        let subsite = parsedScenarioUrl.host.substring(0, parsedScenarioUrl.host.indexOf('_'));
+        let indexOfLocal = parsedBaseUrl.host.indexOf('.local');
+        let indexOfCi = parsedBaseUrl.host.indexOf('.ci.drunomics.com');
+
+        if (indexOfLocal !== -1) {
+          parsedBaseUrl.host = parsedBaseUrl.host.slice(0, indexOfLocal) + '-' + subsite +  parsedBaseUrl.host.slice(indexOfLocal);
+        }
+        else if (indexOfCi !== -1) {
+          parsedBaseUrl.host = subsite + '_' + parsedBaseUrl.host;
+        }
+        newUrl = url.format(parsedBaseUrl);
+      }
+      else {
+        newUrl = this.options.baseUrl + parsedScenarioUrl.path;
+      }
+      scenario.url = newUrl;
     });
   }
 

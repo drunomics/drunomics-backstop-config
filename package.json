@@ -1,6 +1,6 @@
 {
   "name": "@drunomics/drunomics-backstop-config",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Backstop configurator",
   "bin": {
     "backstop-config": "bin/index.js"

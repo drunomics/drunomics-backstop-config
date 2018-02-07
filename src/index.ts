@@ -6,11 +6,16 @@ import {BackstopOptions} from "./BackstopOptions";
 let argv = require('minimist')(process.argv.slice(2));
 let options: BackstopOptions;
 let baseUrl: string;
+let subsite: string;
 let path: string;
 let engine: string;
 
 if (argv.u !== null) {
   baseUrl = argv.u;
+}
+
+if (argv.s !== null) {
+  subsite = argv.s;
 }
 
 if (argv.p !== null) {
@@ -39,7 +44,8 @@ if (typeof engine === 'undefined') {
 options = {
   "baseUrl": baseUrl,
   "path": path,
-  "engine": engine
+  "engine": engine,
+  "subsite": typeof subsite !== 'undefined'
 };
 
 Backstop.init(options);
