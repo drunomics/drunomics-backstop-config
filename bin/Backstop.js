@@ -35,6 +35,9 @@ var Backstop = (function () {
                     parsedBaseUrl.host = subsite + glue + parsedBaseUrl.host;
                 }
                 parsedBaseUrl.pathname = parsedScenarioUrl.pathname;
+                parsedBaseUrl.search = parsedScenarioUrl.search;
+                parsedBaseUrl.query = parsedScenarioUrl.query;
+                parsedBaseUrl.hash = parsedScenarioUrl.hash;
                 newUrl = url.format(parsedBaseUrl);
             }
             else {
