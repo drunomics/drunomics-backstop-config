@@ -10,6 +10,7 @@ let subsite: boolean;
 let dash: boolean;
 let path: string;
 let engine: string;
+let mobilePrefix: string;
 
 if (argv.u !== null) {
   baseUrl = argv.u;
@@ -31,6 +32,10 @@ if (argv.e !== null) {
   engine = argv.e;
 }
 
+if (argv.m !== null) {
+  mobilePrefix = argv.m;
+}
+
 if (typeof baseUrl === 'undefined') {
   console.error('Error: Base URL missing.');
   exit(1);
@@ -46,12 +51,18 @@ if (typeof engine === 'undefined') {
   engine = 'phantomjs';
 }
 
+if (typeof mobilePrefix === 'undefined') {
+  console.log('Engine not set, using "phantomjs"');
+  mobilePrefix = 'm_';
+}
+
 options = {
   "baseUrl": baseUrl,
   "path": path,
   "engine": engine,
   "subsite": typeof subsite !== 'undefined',
-  "dash": typeof dash !== 'undefined'
+  "dash": typeof dash !== 'undefined',
+  "mobilePrefix": mobilePrefix
 };
 
 Backstop.init(options);

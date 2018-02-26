@@ -9,6 +9,7 @@ run `./node_modules/drunomics-backstop-config/bin/index.js`
 `-u $URL` Base URL of test page \
 `-p $PATH` Path to `backstop.json`; default: 'backstop.json' \
 `-e $ENGINE` Engine that should be used by backstop; default: 'phantomjs' \
+`-m $MOBILE_PREFIX` Prefix for mobile pages; default: 'm_' \
 
 `--s` Whether site has subsites. (http(s)://subsite_site.host) \
 `--d` Whether local url should be like host-subsite.local (default is subsite.host.local)

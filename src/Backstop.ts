@@ -45,6 +45,12 @@ export class Backstop {
   setBaseUrl() {
     this.backstopJson.scenarios.forEach((scenario) => {
       let parsedScenarioUrl = url.parse(scenario.url);
+      let isMobile = parsedScenarioUrl.host.indexOf(this.options.mobilePrefix) === 0;
+
+      if (isMobile) {
+        parsedScenarioUrl.host = parsedScenarioUrl.host.substring(2)
+      }
+
       let newUrl = '';
       if (this.options.subsite && parsedScenarioUrl.host.indexOf('_') !== -1) {
         let parsedBaseUrl = url.parse(this.options.baseUrl);
@@ -57,7 +63,12 @@ export class Backstop {
         }
         else {
           let glue = indexOfCi !== -1 ? '_' : '.';
-          parsedBaseUrl.host = subsite + glue + parsedBaseUrl.host;
+          if (isMobile) {
+            parsedBaseUrl.host = this.options.mobilePrefix + subsite + glue + parsedBaseUrl.host;
+          }
+          else {
+            parsedBaseUrl.host = subsite + glue + parsedBaseUrl.host;
+          }
         }
         parsedBaseUrl.pathname = parsedScenarioUrl.pathname;
         parsedBaseUrl.search = parsedScenarioUrl.search;

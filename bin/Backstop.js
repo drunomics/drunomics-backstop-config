@@ -21,6 +21,10 @@ var Backstop = (function () {
         var _this = this;
         this.backstopJson.scenarios.forEach(function (scenario) {
             var parsedScenarioUrl = url.parse(scenario.url);
+            var isMobile = parsedScenarioUrl.host.indexOf(_this.options.mobilePrefix) === 0;
+            if (isMobile) {
+                parsedScenarioUrl.host = parsedScenarioUrl.host.substring(2);
+            }
             var newUrl = '';
             if (_this.options.subsite && parsedScenarioUrl.host.indexOf('_') !== -1) {
                 var parsedBaseUrl = url.parse(_this.options.baseUrl);
@@ -32,7 +36,12 @@ var Backstop = (function () {
                 }
                 else {
                     var glue = indexOfCi !== -1 ? '_' : '.';
-                    parsedBaseUrl.host = subsite + glue + parsedBaseUrl.host;
+                    if (isMobile) {
+                        parsedBaseUrl.host = _this.options.mobilePrefix + subsite + glue + parsedBaseUrl.host;
+                    }
+                    else {
+                        parsedBaseUrl.host = subsite + glue + parsedBaseUrl.host;
+                    }
                 }
                 parsedBaseUrl.pathname = parsedScenarioUrl.pathname;
                 parsedBaseUrl.search = parsedScenarioUrl.search;

@@ -24,4 +24,9 @@ export interface BackstopOptions {
    * Whether local url should be like host-subsite.local
    */
   "dash": boolean
+
+  /**
+   * Prefix of mobile page.
+   */
+  "mobilePrefix": string;
 }
